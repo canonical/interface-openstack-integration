@@ -83,7 +83,7 @@ class OpenStackIntegrationRequires(Endpoint):
         """
         Whether or not the request for this instance has been completed.
         """
-        return bool(self.credentials)
+        return bool(self._received)
 
     @property
     def auth_url(self):
