@@ -16,12 +16,17 @@ The flags that are set by the requires side of this interface are:
   features have been enabled for the OpenStack instance on which the charm is
   running.  This flag is automatically removed if new integration features are
   requested.  It should not be removed by the charm.
+
+* **`endpoint.{endpoint_name}.ready.changed`** This flag is set if the data
+  changes after the ready flag was set.  This flag should be removed by the
+  charm once handled.
 """
 
 
 from charms.reactive import Endpoint
 from charms.reactive import when, when_not
-from charms.reactive import clear_flag, toggle_flag
+from charms.reactive import set_flag, clear_flag, toggle_flag, is_flag_set
+from charms.reactive import data_changed
 
 
 class OpenStackIntegrationRequires(Endpoint):
@@ -70,7 +75,10 @@ class OpenStackIntegrationRequires(Endpoint):
     def check_ready(self):
         # My middle name is ready. No, that doesn't sound right.
         # I eat ready for breakfast.
+        was_ready = is_flag_set(self.expand_name('ready'))
         toggle_flag(self.expand_name('ready'), self.is_ready)
+        if self.is_ready and was_ready and self.is_changed:
+            set_flag(self.expand_name('ready.changed'))
         clear_flag(self.expand_name('changed'))
 
     @when_not('endpoint.{endpoint_name}.joined')
@@ -91,6 +99,26 @@ class OpenStackIntegrationRequires(Endpoint):
             self.user_domain_name,
             self.project_domain_name,
             self.project_name,
+        ])
+
+    @property
+    def is_changed(self):
+        """
+        Whether or not the request for this instance has changed.
+        """
+        return data_change(self.expand_name('all-data'), [
+            self.auth_url,
+            self.region,
+            self.username,
+            self.password,
+            self.user_domain_name,
+            self.project_domain_name,
+            self.project_name,
+            self.endpoint_tls_ca,
+            self.subnet_id,
+            self.floating_network_id,
+            self.lb_method,
+            self.manage_security_groups,
         ])
 
     @property
