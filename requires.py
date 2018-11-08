@@ -106,7 +106,7 @@ class OpenStackIntegrationRequires(Endpoint):
         """
         Whether or not the request for this instance has changed.
         """
-        return data_change(self.expand_name('all-data'), [
+        return data_changed(self.expand_name('all-data'), [
             self.auth_url,
             self.region,
             self.username,
