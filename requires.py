@@ -179,6 +179,13 @@ class OpenStackIntegrationRequires(Endpoint):
         return self._received['endpoint_tls_ca'] or None
 
     @property
+    def version(self):
+        """
+        Optional version number for the APIs or None.
+        """
+        return self._received['version'] or None
+
+    @property
     def subnet_id(self):
         """
         Optional subnet ID to work in, or None.

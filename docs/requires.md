@@ -153,3 +153,8 @@ The user domain name.
 
 The username.
 
+<h2 id="requires.OpenStackIntegrationRequires.version">version</h2>
+
+
+Optional version number for the APIs or None.
+

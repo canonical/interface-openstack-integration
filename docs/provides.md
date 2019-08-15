@@ -72,9 +72,15 @@ marked completed (if ever).
 <h2 id="provides.IntegrationRequest.set_credentials">set_credentials</h2>
 
 ```python
-IntegrationRequest.set_credentials(auth_url, region, username, password,
-                                   user_domain_name, project_domain_name,
-                                   project_name, endpoint_tls_ca)
+IntegrationRequest.set_credentials(auth_url,
+                                   region,
+                                   username,
+                                   password,
+                                   user_domain_name,
+                                   project_domain_name,
+                                   project_name,
+                                   endpoint_tls_ca,
+                                   version=None)
 ```
 
 Set the credentials for this request.
