@@ -15,7 +15,7 @@ The flags that are set by the provides side of this interface are:
 <h1 id="provides.OpenStackIntegrationProvides">OpenStackIntegrationProvides</h1>
 
 ```python
-OpenStackIntegrationProvides(self, endpoint_name, relation_ids=None)
+OpenStackIntegrationProvides(endpoint_name, relation_ids=None)
 ```
 
 Example usage:
@@ -35,17 +35,17 @@ def handle_requests():
 <h2 id="provides.OpenStackIntegrationProvides.all_requests">all_requests</h2>
 
 
-A list of all of the `IntegrationRequests` that have been made.
+A list of all of the [`IntegrationRequests`](#provides.OpenStackIntegrationProvides.all_requests.IntegrationRequests) that have been made.
 
 <h2 id="provides.OpenStackIntegrationProvides.new_requests">new_requests</h2>
 
 
-A list of the new or updated `IntegrationRequests` that have been made.
+A list of the new or updated [`IntegrationRequests`](#provides.OpenStackIntegrationProvides.new_requests.IntegrationRequests) that have been made.
 
 <h2 id="provides.OpenStackIntegrationProvides.mark_completed">mark_completed</h2>
 
 ```python
-OpenStackIntegrationProvides.mark_completed(self)
+OpenStackIntegrationProvides.mark_completed()
 ```
 
 Mark all requests as completed and remove the `requests-pending` flag.
@@ -53,7 +53,7 @@ Mark all requests as completed and remove the `requests-pending` flag.
 <h1 id="provides.IntegrationRequest">IntegrationRequest</h1>
 
 ```python
-IntegrationRequest(self, unit)
+IntegrationRequest(unit)
 ```
 
 A request for integration from a single remote unit.
@@ -72,8 +72,31 @@ marked completed (if ever).
 <h2 id="provides.IntegrationRequest.set_credentials">set_credentials</h2>
 
 ```python
-IntegrationRequest.set_credentials(self, auth_url, region, username, password, user_domain_name, project_domain_name, project_name, endpoint_tls_ca)
+IntegrationRequest.set_credentials(auth_url, region, username, password,
+                                   user_domain_name, project_domain_name,
+                                   project_name, endpoint_tls_ca)
 ```
 
 Set the credentials for this request.
+
+<h2 id="provides.IntegrationRequest.set_lbaas_config">set_lbaas_config</h2>
+
+```python
+IntegrationRequest.set_lbaas_config(subnet_id,
+                                    floating_network_id,
+                                    lb_method,
+                                    manage_security_groups,
+                                    has_octavia=None)
+```
+
+Set the load-balancer-as-a-service config for this request.
+
+<h2 id="provides.IntegrationRequest.set_block_storage_config">set_block_storage_config</h2>
+
+```python
+IntegrationRequest.set_block_storage_config(bs_version, trust_device_path,
+                                            ignore_volume_az)
+```
+
+Set the block storage config for this request.
 

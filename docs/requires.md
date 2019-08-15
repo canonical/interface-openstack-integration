@@ -19,10 +19,14 @@ The flags that are set by the requires side of this interface are:
   running.  This flag is automatically removed if new integration features are
   requested.  It should not be removed by the charm.
 
+* **`endpoint.{endpoint_name}.ready.changed`** This flag is set if the data
+  changes after the ready flag was set.  This flag should be removed by the
+  charm once handled.
+
 <h1 id="requires.OpenStackIntegrationRequires">OpenStackIntegrationRequires</h1>
 
 ```python
-OpenStackIntegrationRequires(self, endpoint_name, relation_ids=None)
+OpenStackIntegrationRequires(endpoint_name, relation_ids=None)
 ```
 
 Interface to request integration access.
@@ -51,6 +55,12 @@ def openstack_integration_ready():
 
 The authentication endpoint URL.
 
+<h2 id="requires.OpenStackIntegrationRequires.bs_version">bs_version</h2>
+
+
+What block storage API version to use, `auto` if autodetection is
+desired, or `None` to use the default.
+
 <h2 id="requires.OpenStackIntegrationRequires.endpoint_tls_ca">endpoint_tls_ca</h2>
 
 
@@ -61,6 +71,27 @@ or None.
 
 
 Optional floating network ID, or None.
+
+<h2 id="requires.OpenStackIntegrationRequires.has_octavia">has_octavia</h2>
+
+
+Whether the underlying OpenStack supports Octavia instead of
+Neutron-based LBaaS.
+
+Will either be True, False, or None if it could not be determined for
+some reason (typically due to connecting to an older integrator charm).
+
+<h2 id="requires.OpenStackIntegrationRequires.ignore_volume_az">ignore_volume_az</h2>
+
+
+Whether to ignore availability zones when attaching Cinder volumes.
+
+Will be `True`, `False`, or `None`.
+
+<h2 id="requires.OpenStackIntegrationRequires.is_changed">is_changed</h2>
+
+
+Whether or not the request for this instance has changed.
 
 <h2 id="requires.OpenStackIntegrationRequires.is_ready">is_ready</h2>
 
@@ -104,6 +135,13 @@ The region name.
 
 
 Optional subnet ID to work in, or None.
+
+<h2 id="requires.OpenStackIntegrationRequires.trust_device_path">trust_device_path</h2>
+
+
+Whether to trust the block device name provided by Ceph.
+
+Will be `True`, `False`, or `None`.
 
 <h2 id="requires.OpenStackIntegrationRequires.user_domain_name">user_domain_name</h2>
 

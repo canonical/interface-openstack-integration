@@ -116,7 +116,8 @@ class IntegrationRequest:
                          subnet_id,
                          floating_network_id,
                          lb_method,
-                         manage_security_groups):
+                         manage_security_groups,
+                         has_octavia=None):
         """
         Set the load-balancer-as-a-service config for this request.
         """
@@ -125,6 +126,7 @@ class IntegrationRequest:
             'floating_network_id': floating_network_id,
             'lb_method': lb_method,
             'manage_security_groups': manage_security_groups,
+            'has_octavia': has_octavia,
         })
 
     def set_block_storage_config(self,
