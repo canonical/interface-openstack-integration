@@ -120,6 +120,7 @@ class IntegrationRequest:
                          lb_method,
                          manage_security_groups,
                          has_octavia=None,
+                         lb_enabled=None,
                          internal_lb=False):
         """
         Set the load-balancer-as-a-service config for this request.
@@ -131,6 +132,7 @@ class IntegrationRequest:
             'internal_lb': internal_lb,
             'manage_security_groups': manage_security_groups,
             'has_octavia': has_octavia,
+            'lb_enabled': lb_enabled,
         })
 
     def set_block_storage_config(self,
