@@ -120,6 +120,7 @@ class OpenStackIntegrationRequires(Endpoint):
             self.lb_method,
             self.internal_lb,
             self.manage_security_groups,
+            self.lb_enabled,
         ])
 
     @property
@@ -261,3 +262,11 @@ class OpenStackIntegrationRequires(Endpoint):
         some reason (typically due to connecting to an older integrator charm).
         """
         return self._received['has_octavia']
+
+    @property
+    def lb_enabled(self):
+        """
+        Whether or not LoadBalancer service integration should be enabled in
+        openstack-cloud-controller-manager.
+        """
+        return self._received['lb_enabled']
