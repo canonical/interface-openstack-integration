@@ -269,4 +269,5 @@ class OpenStackIntegrationRequires(Endpoint):
         Whether or not LoadBalancer service integration should be enabled in
         openstack-cloud-controller-manager.
         """
-        return self._received['lb_enabled']
+        # be careful to ensure a None value is returned as True, for backward compatibility
+        return self._received['lb_enabled'] is not False
