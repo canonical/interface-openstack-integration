@@ -98,8 +98,14 @@ class IntegrationRequest:
                         project_domain_name,
                         project_name,
                         endpoint_tls_ca,
+                        *_,
+                        domain_id=None,
+                        domain_name=None,
+                        project_id=None,
+                        project_domain_id=None,
+                        user_domain_id=None,
                         version=None,
-                        project_id=None):
+            ):
         """
         Set the credentials for this request.
         """
@@ -108,11 +114,15 @@ class IntegrationRequest:
             'region': region,
             'username': username,
             'password': password,
-            'user_domain_name': user_domain_name,
+            'domain_id': domain_id,
+            'domain_name': domain_name,
+            'endpoint_tls_ca': endpoint_tls_ca,
             'project_domain_name': project_domain_name,
+            'project_domain_id': project_domain_id,
             'project_id': project_id,
             'project_name': project_name,
-            'endpoint_tls_ca': endpoint_tls_ca,
+            'user_domain_id': user_domain_id,
+            'user_domain_name': user_domain_name,
             'version': version,
         })
 

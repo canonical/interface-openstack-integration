@@ -9,12 +9,16 @@ lb_enabled: "true"
 lb_method: '"ROUND_ROBIN"'
 manage_security_groups: "false"
 password: '"superSecret"'
-project_domain_name: '"user"'
+domain_name: '"admin_domain"'
+domain_id: '"23456789012345678901234567890123"'
+project_domain_id: '"12345678901234567890123456789012"'
+project_domain_name: '"project_domain"'
 project_id: '"01234567890123456789012345678901"'
 project_name: '"admin"'
 region: '"myRegion"'
 subnet_id: '""'
 trust_device_path: "null"
 user_domain_name: '"user"'
+user_domain_id: '"90123456789012345678901234567890"'
 username: '"admin"'
 version: '"3"'

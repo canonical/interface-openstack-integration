@@ -111,8 +111,12 @@ class OpenStackIntegrationRequires(Endpoint):
             self.region,
             self.username,
             self.password,
+            self.domain_id,
+            self.domain_name,
             self.user_domain_name,
+            self.user_domain_id,
             self.project_domain_name,
+            self.project_domain_id,
             self.project_id,
             self.project_name,
             self.endpoint_tls_ca,
@@ -130,6 +134,20 @@ class OpenStackIntegrationRequires(Endpoint):
         The authentication endpoint URL.
         """
         return self._received['auth_url']
+
+    @property
+    def domain_id(self):
+        """
+        The domain-id.
+        """
+        return self._received['domain_id']
+    
+    @property
+    def domain_name(self):
+        """
+        The domain name.
+        """
+        return self._received['domain_name']
 
     @property
     def region(self):
@@ -153,11 +171,25 @@ class OpenStackIntegrationRequires(Endpoint):
         return self._received['password']
 
     @property
+    def user_domain_id(self):
+        """
+        The user domain id.
+        """
+        return self._received['user_domain_id']
+
+    @property
     def user_domain_name(self):
         """
         The user domain name.
         """
         return self._received['user_domain_name']
+
+    @property
+    def project_domain_id(self):
+        """
+        The project-domain-id.
+        """
+        return self._received['project_domain_id']
 
     @property
     def project_domain_name(self):
@@ -169,7 +201,7 @@ class OpenStackIntegrationRequires(Endpoint):
     @property
     def project_id(self):
         """
-        The project id.
+        The project-id.
         """
         return self._received['project_id']
 
