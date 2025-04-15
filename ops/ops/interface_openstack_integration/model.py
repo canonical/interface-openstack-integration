@@ -10,7 +10,7 @@ import binascii
 import configparser
 import contextlib
 import io
-from typing import Optional
+from typing import Dict, Optional
 
 from pydantic import BaseModel, Json, SecretStr, validator
 
@@ -40,6 +40,7 @@ class Data(BaseModel):
     lb_method: Json[Optional[str]]
     project_id: Json[Optional[str]] = None
     project_domain_id: Json[Optional[str]] = None
+    proxy_config: Json[Optional[Dict[str, str]]] = None
     manage_security_groups: Json[Optional[bool]]
     subnet_id: Json[Optional[str]]
     trust_device_path: Json[Optional[bool]]

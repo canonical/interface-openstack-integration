@@ -22,6 +22,7 @@ The flags that are set by the requires side of this interface are:
   charm once handled.
 """
 
+from typing import Dict
 
 from charms.reactive import Endpoint
 from charms.reactive import when, when_not
@@ -311,3 +312,11 @@ class OpenStackIntegrationRequires(Endpoint):
         """
         # be careful to ensure a None value is returned as True, for backward compatibility
         return self._received['lb_enabled'] is not False
+
+    @property
+    def proxy_config(self) -> Dict[str, str]:
+        """Return proxy_config from integrator relation."""
+        data = self._received.get('proxy_config') 
+        if not data or not isinstance(data, dict):
+            return {}
+        return {k: (v or "") for k, v  in data.items()}

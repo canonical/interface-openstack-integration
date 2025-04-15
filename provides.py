@@ -12,6 +12,7 @@ The flags that are set by the provides side of this interface are:
 """
 
 from operator import attrgetter
+from typing import Dict
 
 from charms.reactive import Endpoint
 from charms.reactive import when
@@ -109,7 +110,7 @@ class IntegrationRequest:
         """
         Set the credentials for this request.
         """
-        self._unit.relation.to_publish.update({
+        self._to_publish.update({
             'auth_url': auth_url,
             'region': region,
             'username': username,
@@ -137,7 +138,7 @@ class IntegrationRequest:
         """
         Set the load-balancer-as-a-service config for this request.
         """
-        self._unit.relation.to_publish.update({
+        self._to_publish.update({
             'subnet_id': subnet_id,
             'floating_network_id': floating_network_id,
             'lb_method': lb_method,
@@ -154,10 +155,29 @@ class IntegrationRequest:
         """
         Set the block storage config for this request.
         """
-        self._unit.relation.to_publish.update({
+        self._to_publish.update({
             'bs_version': bs_version,
             'trust_device_path': trust_device_path,
             'ignore_volume_az': ignore_volume_az,
+        })
+
+    def get_proxy_config(self) -> Dict[str, str]:
+        """
+        Get the proxy config for this request.
+
+        if `proxy_config` is not set, return an empty dict.
+        """
+        data = self._to_publish.get('proxy_config')
+        if not data or not isinstance(data, dict):
+            return {}
+        return {k: (v or "") for k, v  in data.items()}
+
+    def set_proxy_config(self, proxy_config: Dict[str, str]):
+        """
+        Set the proxy config for this request.
+        """
+        self._to_publish.update({
+            'proxy_config': proxy_config,
         })
 
     @property
@@ -165,4 +185,4 @@ class IntegrationRequest:
         """
         Whether or not credentials have been set via `set_credentials`.
         """
-        return 'credentials' in self._unit.relation.to_publish
+        return 'credentials' in self._to_publish

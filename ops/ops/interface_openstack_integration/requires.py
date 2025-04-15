@@ -7,7 +7,7 @@ is still using the Reactive Charm framework self.
 """
 import base64
 import logging
-from typing import Optional
+from typing import Dict, Optional
 
 from backports.cached_property import cached_property
 from ops.charm import CharmBase, RelationBrokenEvent
@@ -108,3 +108,15 @@ class OpenstackIntegrationRequirer(Object):
             if data.endpoint_tls_ca:
                 return data.endpoint_tls_ca.encode()
         return None
+
+    @property
+    def proxy_config(self) -> Dict[str, str]:
+        """Return proxy_config from integrator relation."""
+        if self.is_ready and (data := self._data):
+            config = data.proxy_config
+        else:
+            config = {}
+
+        if not config or not isinstance(config, dict):
+            return {}
+        return {k: (v or "") for k, v in config.items()}
