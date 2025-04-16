@@ -112,11 +112,7 @@ class OpenstackIntegrationRequirer(Object):
     @property
     def proxy_config(self) -> Dict[str, str]:
         """Return proxy_config from integrator relation."""
+        config = None
         if self.is_ready and (data := self._data):
             config = data.proxy_config
-        else:
-            config = {}
-
-        if not config or not isinstance(config, dict):
-            return {}
-        return {k: (v or "") for k, v in config.items()}
+        return config or {}

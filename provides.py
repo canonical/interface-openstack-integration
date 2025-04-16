@@ -161,9 +161,10 @@ class IntegrationRequest:
             'ignore_volume_az': ignore_volume_az,
         })
 
-    def get_proxy_config(self) -> Dict[str, str]:
+    @property
+    def proxy_config(self) -> Dict[str, str]:
         """
-        Get the proxy config for this request.
+        Get the proxy config answered on this request.
 
         if `proxy_config` is not set, return an empty dict.
         """

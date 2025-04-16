@@ -106,13 +106,14 @@ IntegrationRequest.set_block_storage_config(bs_version, trust_device_path,
 
 Set the block storage config for this request.
 
-<h2 id="provides.IntegrationRequest.get_proxy_config">get_proxy_config</h2>
+<h2 id="provides.IntegrationRequest.proxy_config">proxy_config</h2>
 
 ```python
-IntegrationRequest.get_proxy_config() -> Dict[str, str]
+@property
+IntegrationRequest.proxy_config() -> Dict[str, str]
 ```
 
-Retrieve the proxy_config previously set by the provider side of the charm.
+Retrieve the `proxy_config` currently set by the provider side of the charm.
 
 <h2 id="provides.IntegrationRequest.set_proxy_config">set_proxy_config</h2>
 

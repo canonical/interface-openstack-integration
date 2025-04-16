@@ -158,3 +158,13 @@ The username.
 
 Optional version number for the APIs or None.
 
+
+<h2 id="requires.OpenStackIntegrationRequires.proxy_config">proxy_config</h2>
+
+```python
+@property
+OpenStackIntegrationRequires.proxy_config() -> Dict[str, str]
+```
+
+Optional `proxy_config` used to indicate to the application proxy details
+necessary to reach the openstack endpoints.
