@@ -9,6 +9,7 @@ import base64
 import logging
 from typing import Dict, Optional
 
+import pydantic
 from backports.cached_property import cached_property
 from ops.charm import CharmBase, RelationBrokenEvent
 from ops.framework import Object
@@ -50,8 +51,11 @@ class OpenstackIntegrationRequirer(Object):
 
     @cached_property
     def _data(self) -> Optional[Data]:
-        raw = self._raw_data
-        return Data(**raw) if raw else None
+        if raw := self._raw_data:
+            if pydantic.VERSION.startswith("1."):
+                return Data.parse_obj(raw)
+            return Data.model_validate(raw)
+        return None
 
     def evaluate_relation(self, event) -> Optional[str]:
         """Determine if relation is ready."""
@@ -88,23 +92,30 @@ class OpenstackIntegrationRequirer(Object):
         )
 
     @property
+    def data(self) -> Optional[Data]:
+        """Return parsed data from integrator relation."""
+        if self.is_ready:
+            return self._data
+        return None
+
+    @property
     def cloud_conf(self) -> Optional[str]:
         """Return cloud.conf from integrator relation."""
-        if self.is_ready and (data := self._data):
+        if data := self.data:
             return data.cloud_config
         return None
 
     @property
     def cloud_conf_b64(self) -> Optional[bytes]:
         """Return cloud.conf from integrator relation as base64-encoded bytes."""
-        if self.is_ready and (data := self.cloud_conf):
+        if data := self.cloud_conf:
             return base64.b64encode(data.encode())
         return None
 
     @property
     def endpoint_tls_ca(self) -> Optional[bytes]:
-        """Return cloud.conf from integrator relation."""
-        if self.is_ready and (data := self._data):
+        """Return endpoint tls ca from integrator relation."""
+        if data := self.data:
             if data.endpoint_tls_ca:
                 return data.endpoint_tls_ca.encode()
         return None
@@ -113,6 +124,6 @@ class OpenstackIntegrationRequirer(Object):
     def proxy_config(self) -> Dict[str, str]:
         """Return proxy_config from integrator relation."""
         config = None
-        if self.is_ready and (data := self._data):
+        if data := self.data:
             config = data.proxy_config
         return config or {}

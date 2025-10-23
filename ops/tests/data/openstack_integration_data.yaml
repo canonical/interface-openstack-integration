@@ -22,3 +22,15 @@ user_domain_name: '"user"'
 user_domain_id: '"90123456789012345678901234567890"'
 username: '"admin"'
 version: '"3"'
+lb_classes: >  #intentionally a string encoding a JSON structure
+  {
+    "default": {
+      "floating-network-id": "",
+      "floating-subnet-id": "",
+      "floating-subnet": "",
+      "floating-subnet-tags": "",
+      "network-id": "",
+      "subnet-id": "",
+      "member-subnet-id": "something"
+    }
+  }
